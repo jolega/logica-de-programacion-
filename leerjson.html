@@ -1,0 +1,84 @@
+
+<!-- video de guia  https://www.youtube.com/watch?v=oaaeYcyjoQM -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lector de  json</title>
+    <script src="jquery-3.6.0.min.js"> </script>
+    
+</head>
+<body>
+    <button id="importarContenido">Leer contenido</button>
+    <br>
+    <br>
+    <table border="1" id="personas">
+        <thead>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>edad</th>
+        </thead>
+    </table>
+    <script src="scripts/importar_json.js"></script>    
+</body>
+</html>
+ <!--se configura el jquery-->
+ <script type="text/javascript"> 
+    $(document).ready(function(){
+        $('#personas').hide();
+        
+         $('#importarContenido').click(function(){
+           
+
+            $.get("json/contenido.json",function(datos){
+                console.log(datos)
+            })
+
+            $.ajax
+            ({
+                type: "GET",
+                url: "https://api.sandbox.guesty.com/api/v2/listings/",
+                dataType: 'json',
+                headers: {
+                 "Authorization": "Basic " + btoa("6ae53ffb4addcb0929e845c6a385ef21" + ":" + "ab828ea3ce2a76564587fbb063ffe5ff")
+                 },
+                data: '{ "comment" }',
+                 success: function (){
+                  alert('Thanks for your comment!'); 
+                 }
+                }).done((lectura) =>{
+                console.log(lectura)
+            });
+                        
+           // leer e imprimir en consola
+           $.get("json/contenido.json",function(datos){
+              console.log(datos)
+                 });
+            // leer y cargar a la tabla  
+
+            $.ajax({
+              type: 'GET',
+              url: 'json/contenido.json',
+              dataType:  'json'
+    
+
+                }).done((data) =>{
+                $.each(data,function(indice,persona){
+                   let fila= $('<tr> ');
+                   fila.append($(`<td> ${persona.id} </td> `));
+                   fila.append($(`<td> ${persona.nombre} </td> `));
+                   fila.append($(`<td> ${persona.apellido} </td> `));
+                   fila.append($(`<td> ${persona.edad} </td> `));
+               $('#personas').append(fila)
+     
+           })
+             $('#personas').show();  
+});
+
+        })
+    });
+    </script>

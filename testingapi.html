@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lector de  json</title>
+    <script src="jquery-3.6.0.min.js"> </script>
+    
+</head>
+<body>
+    <button id="importarContenido">Leer contenido</button>
+    <br>
+    <br>
+    <table border="1" id="propiedades">
+        <thead>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>edad</th>
+        </thead>
+    </table>
+</body>
+</html>
+ <!--se configura el jquery-->
+ <script type="text/javascript"> 
+    $(document).ready(function(){
+        $('#propiedades').hide();
+        
+         $('#importarContenido').click(function(){
+
+
+            $.ajax
+            ({
+                type: "GET",
+                url: "https://api.sandbox.guesty.com/api/v2/listings/613a0556f8050f002ff0bf1b",
+                dataType: 'json',
+                headers: {
+                 "Authorization": "Basic " + btoa("6ae53ffb4addcb0929e845c6a385ef21" + ":" + "ab828ea3ce2a76564587fbb063ffe5ff")
+                 },
+                 data: '{ "comment" }',
+                 success: function (){
+                  alert('conexion completa!'); 
+                 }
+                }).done((lectura) =>{
+                console.log(lectura)
+            });                    
+
+
+        })
+    });
+    </script>
